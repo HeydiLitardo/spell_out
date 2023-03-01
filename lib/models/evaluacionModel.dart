@@ -4,7 +4,7 @@ class Evaluacion {
   int? id;
   String? nombre;
   String? descripcion;
-  String? fecha;
+  DateTime? fecha;
   String? observacion;
   int? totalAciertos;
   int? totalErrores;

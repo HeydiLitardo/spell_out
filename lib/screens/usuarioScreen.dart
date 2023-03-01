@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class UsuarioScreen extends StatefulWidget {
-  const UsuarioScreen({Key? key}) : super(key: key);
+  final Function() onCerrarSesion;
+  const UsuarioScreen({Key? key, required this.onCerrarSesion})
+      : super(key: key);
 
   @override
   _UsuarioScreenState createState() => _UsuarioScreenState();
@@ -106,7 +108,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      widget.onCerrarSesion();
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(

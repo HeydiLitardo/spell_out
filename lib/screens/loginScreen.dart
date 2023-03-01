@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/usuarioModel.dart';
+import '../providers/usuarioProvider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -8,6 +12,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late Usuario usuario = Usuario();
+
+  final correoController = TextEditingController();
+  final contrasenaController = TextEditingController();
+
+  void iniciarSesion() {
+    usuario.correo = correoController.text;
+    usuario.contrasena = contrasenaController.text;
+    usuario = context
+        .read<UsuarioProvider>()
+        .getUsuario(usuario.correo!, usuario.contrasena!)!;
+    if (usuario.id != null) {
+      context.read<UsuarioProvider>().usuario = usuario;
+      Navigator.pushNamed(context, '/navigation');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Usuario o contraseña incorrectos'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 12,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: correoController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
@@ -74,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextField(
               obscureText: true,
+              controller: contrasenaController,
               decoration: InputDecoration(
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -98,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/navigation');
+                    iniciarSesion();
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(

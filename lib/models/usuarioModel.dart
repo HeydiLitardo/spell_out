@@ -15,7 +15,8 @@ class Usuario {
       this.cedula,
       this.correo,
       this.contrasena,
-      this.fechaNacimiento});
+      this.fechaNacimiento, 
+      this.rol});
 
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
