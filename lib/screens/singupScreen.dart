@@ -231,7 +231,7 @@ class _SingupScreenState extends State<SingupScreen> {
                                     Theme.of(context).primaryColor),
                                 elevation: MaterialStateProperty.all(0),
                                 minimumSize: MaterialStateProperty.all(
-                                    const Size(380, 56)),
+                                    const Size(360, 56)),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                         borderRadius:

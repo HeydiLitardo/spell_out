@@ -155,7 +155,7 @@ class _FormularioUsuarioState extends State<FormularioUsuario> {
                                 Theme.of(context).primaryColor),
                             elevation: MaterialStateProperty.all(0),
                             minimumSize:
-                                MaterialStateProperty.all(const Size(380, 56)),
+                                MaterialStateProperty.all(const Size(360, 56)),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18)))),
