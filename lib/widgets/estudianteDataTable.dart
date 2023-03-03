@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:speechout_app/models/usuarioModel.dart';
+import 'package:spell_out/models/usuarioModel.dart';
 
 class EstudianteDataTable extends StatefulWidget {
   final List<Usuario> estudiantes;

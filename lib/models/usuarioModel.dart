@@ -15,28 +15,29 @@ class Usuario {
       this.cedula,
       this.correo,
       this.contrasena,
-      this.fechaNacimiento, 
+      this.fechaNacimiento,
       this.rol});
 
-  factory Usuario.fromJson(Map<String, dynamic> json) {
-    return Usuario(
-      id: json['id'],
-      nombre: json['nombre'],
-      apellido: json['apellido'],
-      cedula: json['cedula'],
-      correo: json['correo'],
-      contrasena: json['contrasena'],
-      fechaNacimiento: DateTime.parse(json['fechaNacimiento']),
-    );
+  Usuario.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+    apellido = json['apellido'];
+    cedula = json['cedula'];
+    correo = json['correo'];
+    contrasena = json['contrasena'];
+    rol = json['rol'];
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'nombre': nombre,
-        'apellido': apellido,
-        'cedula': cedula,
-        'correo': correo,
-        'contrasena': contrasena,
-        'fechaNacimiento': fechaNacimiento!.toIso8601String(),
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    data['apellido'] = this.apellido;
+    data['cedula'] = this.cedula;
+    data['correo'] = this.correo;
+    data['contrasena'] = this.contrasena;
+    data['fechaNacimiento'] = this.fechaNacimiento;
+    data['rol'] = this.rol;
+    return data;
+  }
 }

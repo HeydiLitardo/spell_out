@@ -20,19 +20,25 @@ class _LoginScreenState extends State<LoginScreen> {
   void iniciarSesion() {
     usuario.correo = correoController.text;
     usuario.contrasena = contrasenaController.text;
-    usuario = context
+    context
         .read<UsuarioProvider>()
-        .getUsuario(usuario.correo!, usuario.contrasena!)!;
-    if (usuario.id != null) {
-      context.read<UsuarioProvider>().usuario = usuario;
-      Navigator.pushNamed(context, '/navigation');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Usuario o contraseña incorrectos'),
-        ),
-      );
-    }
+        .signInWithEmailAndPassword(usuario.correo!, usuario.contrasena!)
+        .then((value) {
+      if (value == 'El correo electrónico y la contraseña son obligatorios.') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(value),
+        ));
+        return;
+      }
+      if (value.contains('user_uid:')) {
+        context.read<UsuarioProvider>().usuario = usuario;
+        Navigator.pushNamed(context, '/navigation');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Correo o contraseña incorrectos'),
+        ));
+      }
+    });
   }
 
   @override
@@ -44,6 +50,18 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: const [
+            //     Image(
+            //       image: AssetImage('assets/images/logo1.jpg'),
+            //       height: 150,
+            //     )
+            //   ],
+            // ),
+            const SizedBox(
+              height: 30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [

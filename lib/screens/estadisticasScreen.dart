@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:speechout_app/widgets/estudianteDataTable.dart';
+import 'package:spell_out/widgets/estudianteDataTable.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
