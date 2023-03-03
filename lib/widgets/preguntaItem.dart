@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:speechout_app/models/actividadModel.dart';
+import 'package:spell_out/models/actividadModel.dart';
 
 class PreguntaItem extends StatefulWidget {
-  final Actividad actividad;
+  final Actividad? actividad;
 
   const PreguntaItem({Key? key, required this.actividad}) : super(key: key);
 
@@ -29,13 +29,13 @@ class _PreguntaItemState extends State<PreguntaItem> {
       child: Column(
         children: [
           Text(
-            widget.actividad.nombre!,
+            widget.actividad!.nombre!,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 30,
           ),
-          Image.asset(widget.actividad.imagen!, width: 150, height: 150),
+          Image.asset(widget.actividad!.imagen!, width: 150, height: 150),
           const SizedBox(
             height: 30,
           ),

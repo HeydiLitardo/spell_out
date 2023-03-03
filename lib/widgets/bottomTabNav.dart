@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:speechout_app/models/usuarioModel.dart';
-import 'package:speechout_app/providers/usuarioProvider.dart';
-import 'package:speechout_app/screens/estadisticasScreen.dart';
-import 'package:speechout_app/screens/estudiantesScreen.dart';
-import 'package:speechout_app/screens/homeScreen.dart';
-import 'package:speechout_app/screens/juegoScreen.dart';
-import 'package:speechout_app/screens/usuarioScreen.dart';
+import 'package:spell_out/models/usuarioModel.dart';
+import 'package:spell_out/providers/usuarioProvider.dart';
+import 'package:spell_out/screens/estadisticasScreen.dart';
+import 'package:spell_out/screens/estudiantesScreen.dart';
+import 'package:spell_out/screens/homeScreen.dart';
+import 'package:spell_out/screens/juegoScreen.dart';
+import 'package:spell_out/screens/usuarioScreen.dart';
 
 class BottomTabNav extends StatefulWidget {
   const BottomTabNav({Key? key}) : super(key: key);
@@ -17,6 +17,7 @@ class BottomTabNav extends StatefulWidget {
 
 class _BottomTabNavState extends State<BottomTabNav> {
   int navIndex = 0;
+
   late List<StatefulWidget> screensParaProfesores = [
     const HomeScreen(),
     const EstadisticasScreen(),
@@ -25,8 +26,8 @@ class _BottomTabNavState extends State<BottomTabNav> {
   ];
 
   late List<StatefulWidget> screensParaEstudiantes = [
+    const HomeScreen(),
     const JuegoScreen(),
-    const EstadisticasScreen(),
     UsuarioScreen(
       onCerrarSesion: onCerrarSesion,
     )
@@ -56,12 +57,12 @@ class _BottomTabNavState extends State<BottomTabNav> {
 
   List<BottomNavigationBarItem> itemsParaEstudiantes = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.gamepad),
-      label: 'Juego',
+      icon: Icon(Icons.home),
+      label: 'Inicio',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.bar_chart),
-      label: 'Estadísticas',
+      icon: Icon(Icons.sports_esports_outlined),
+      label: 'Juego',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.person),
@@ -72,17 +73,28 @@ class _BottomTabNavState extends State<BottomTabNav> {
   void initState() {
     super.initState();
     navIndex = 0;
-    screens = screensParaProfesores;
-    items = itemsParaProfesores;
+    screens = screensParaEstudiantes;
+    items = itemsParaEstudiantes;
+
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Usuario usuario = context.read<UsuarioProvider>().usuario;
+      debugPrint('usuario: ${usuario.rol}');
+      validarRol(usuario);
+    });
   }
 
   void validarRol(Usuario usuario) {
     if (usuario.rol == 'profesor') {
-      screens = screensParaProfesores;
-      items = itemsParaProfesores;
+      setState(() {
+        navIndex = 0;
+        screens = screensParaProfesores;
+        items = itemsParaProfesores;
+      });
     } else {
-      screens = screensParaEstudiantes;
-      items = itemsParaEstudiantes;
+      setState(() {
+        screens = screensParaEstudiantes;
+        items = itemsParaEstudiantes;
+      });
     }
   }
 
@@ -90,13 +102,12 @@ class _BottomTabNavState extends State<BottomTabNav> {
     setState(() {
       navIndex = 0;
     });
+    context.read<UsuarioProvider>().signOut();
     Navigator.pushNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    Usuario usuario = context.watch<UsuarioProvider>().usuario;
-    validarRol(usuario);
     return Scaffold(
       body: screens[navIndex],
       bottomNavigationBar: BottomNavigationBar(

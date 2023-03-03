@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spell_out/models/usuarioModel.dart';
+import 'package:spell_out/providers/usuarioProvider.dart';
 
 class UsuarioScreen extends StatefulWidget {
   final Function() onCerrarSesion;
@@ -11,7 +14,15 @@ class UsuarioScreen extends StatefulWidget {
 
 class _UsuarioScreenState extends State<UsuarioScreen> {
   @override
+  void initState() {
+    super.initState();
+    context.read<UsuarioProvider>().getLetraPorUsuario();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Usuario usuario = context.watch<UsuarioProvider>().usuario;
+    String imagen = context.watch<UsuarioProvider>().imgUsuario;
     return Padding(
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
@@ -31,10 +42,8 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                     height: 90,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image:
-                                AssetImage('assets/images/alphabeth/u.png'))),
+                        image: DecorationImage(
+                            fit: BoxFit.cover, image: AssetImage(imagen))),
                   ),
                   const SizedBox(
                     width: 21,
@@ -44,32 +53,33 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
-                            'Nombre del usuario',
-                            style: TextStyle(
+                            '${usuario.nombre} ${usuario.apellido}',
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
-                      const Text('Correo del usuario',
-                          style: TextStyle(
+                      Text('${usuario.correo}',
+                          style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey)),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
-                      const Text('Cedula del usuario',
-                          style: TextStyle(fontSize: 15, color: Colors.grey))
+                      Text('${usuario.cedula}',
+                          style:
+                              const TextStyle(fontSize: 15, color: Colors.grey))
                     ],
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ListTile(
@@ -100,7 +110,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
               const Divider(
                 thickness: 1,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 360,
               ),
               Row(

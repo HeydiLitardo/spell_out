@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:speechout_app/providers/usuarioProvider.dart';
-import 'package:speechout_app/screens/estadisticasScreen.dart';
-import 'package:speechout_app/screens/loginScreen.dart';
-import 'package:speechout_app/screens/singupScreen.dart';
+import 'package:spell_out/providers/datosProvider.dart';
+import 'package:spell_out/providers/evaluacionProvider.dart';
+import 'package:spell_out/providers/usuarioProvider.dart';
+import 'package:spell_out/screens/estadisticasScreen.dart';
+import 'package:spell_out/screens/loginScreen.dart';
+import 'package:spell_out/screens/singupScreen.dart';
 
 import 'screens/formularioUsuario.dart';
 import 'screens/homeScreen.dart';
 import 'widgets/bottomTabNav.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -20,6 +29,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UsuarioProvider()),
+        ChangeNotifierProvider(create: (_) => EvaluacionProvider()),
+        ChangeNotifierProvider(create: (_) => DatosProvider())
       ],
       builder: (context, child) {
         return MaterialApp(
