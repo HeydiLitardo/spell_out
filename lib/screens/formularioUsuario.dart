@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:spell_out/models/usuarioModel.dart';
+
+import '../providers/usuarioProvider.dart';
 
 class FormularioUsuario extends StatefulWidget {
   const FormularioUsuario({Key? key}) : super(key: key);
@@ -18,6 +21,27 @@ class _FormularioUsuarioState extends State<FormularioUsuario> {
       _formKey.currentState!.save();
       usuario.rol = 'estudiante';
       usuario.contrasena = usuario.cedula;
+      usuario.referencia = context.read<UsuarioProvider>().usuario.id;
+      context
+          .read<UsuarioProvider>()
+          .registrarUsuarioFirebaseAuth(usuario.correo!, usuario.contrasena!)
+          .then((value) => {
+                if (value == 'error')
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('El correo electrónico ya está en uso'),
+                    ))
+                  }
+                else
+                  {
+                    usuario.id = value,
+                    context.read<UsuarioProvider>().registrarUsuario(usuario),
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('El estudiante se ha registrado'),
+                    )),
+                    Navigator.pop(context),
+                  }
+              });
     }
   }
 

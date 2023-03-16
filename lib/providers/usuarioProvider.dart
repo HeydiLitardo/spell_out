@@ -116,6 +116,7 @@ class UsuarioProvider with ChangeNotifier {
         String uid = user.uid;
         List<Map<String, dynamic>> usuarios =
             await _firebaseFirestore.getDocuments('usuarios');
+        debugPrint('usuarios: $usuarios');
         _usuario = Usuario.fromJson(usuarios.firstWhere(
             (usuario) => usuario['id'] == uid,
             orElse: () => Usuario().toJson()));
@@ -124,6 +125,16 @@ class UsuarioProvider with ChangeNotifier {
     } catch (e) {
       print('Error: ' + e.toString());
     }
+  }
+
+  Future<List<Usuario>> getEstudiantes() async {
+    List<Map<String, dynamic>> usuarios =
+        await _firebaseFirestore.getDocuments('usuarios');
+    List<Usuario> estudiantes = usuarios
+        .map((usuario) => Usuario.fromJson(usuario))
+        .where((usuario) => usuario.referencia == _usuario.id)
+        .toList();
+    return estudiantes;
   }
 
   // devolver actividad resultaado en base a la primera letra del usuario

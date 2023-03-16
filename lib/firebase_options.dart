@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCPgN0p5MPR_9RD8PuSpPYopXMl3fwRvtU',
-    appId: '1:624522877347:web:80059ddeddf68c0ab9a216',
-    messagingSenderId: '624522877347',
-    projectId: 'spell-out-f6f05',
-    authDomain: 'spell-out-f6f05.firebaseapp.com',
-    storageBucket: 'spell-out-f6f05.appspot.com',
+    apiKey: 'AIzaSyAqZhepkKzGaS8EgRhNUApvdBI8DRX5da0',
+    appId: '1:52270552804:web:f28a6202efda6f90163ef1',
+    messagingSenderId: '52270552804',
+    projectId: 'vozletra-16bc9',
+    authDomain: 'vozletra-16bc9.firebaseapp.com',
+    storageBucket: 'vozletra-16bc9.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDLEwkTF3gyaW0rYDXJNCDVvvq44BZ-o50',
-    appId: '1:624522877347:android:c1ffb7be1e452a5db9a216',
-    messagingSenderId: '624522877347',
-    projectId: 'spell-out-f6f05',
-    storageBucket: 'spell-out-f6f05.appspot.com',
+    apiKey: 'AIzaSyCHZWjlWwW_0jxQ24yeWnPCmaZzwDsREWs',
+    appId: '1:52270552804:android:b8f07ef4d331bf82163ef1',
+    messagingSenderId: '52270552804',
+    projectId: 'vozletra-16bc9',
+    storageBucket: 'vozletra-16bc9.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDaa2JhAdZ3ejOFqn4_GADePUM8QeLUMbE',
-    appId: '1:624522877347:ios:d0b9529a5ec28f52b9a216',
-    messagingSenderId: '624522877347',
-    projectId: 'spell-out-f6f05',
-    storageBucket: 'spell-out-f6f05.appspot.com',
-    iosClientId: '624522877347-ub6flolv5avq1baf7fgdbh949eed13el.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAmZyyk5ngXFMKHBNau1Ukwi5y7fV8An58',
+    appId: '1:52270552804:ios:0d32beab9bce2a74163ef1',
+    messagingSenderId: '52270552804',
+    projectId: 'vozletra-16bc9',
+    storageBucket: 'vozletra-16bc9.appspot.com',
+    iosClientId: '52270552804-13nngancki2b5l7a377jvcr1d80vuca2.apps.googleusercontent.com',
     iosBundleId: 'com.example.speechoutApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDaa2JhAdZ3ejOFqn4_GADePUM8QeLUMbE',
-    appId: '1:624522877347:ios:d0b9529a5ec28f52b9a216',
-    messagingSenderId: '624522877347',
-    projectId: 'spell-out-f6f05',
-    storageBucket: 'spell-out-f6f05.appspot.com',
-    iosClientId: '624522877347-ub6flolv5avq1baf7fgdbh949eed13el.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAmZyyk5ngXFMKHBNau1Ukwi5y7fV8An58',
+    appId: '1:52270552804:ios:0d32beab9bce2a74163ef1',
+    messagingSenderId: '52270552804',
+    projectId: 'vozletra-16bc9',
+    storageBucket: 'vozletra-16bc9.appspot.com',
+    iosClientId: '52270552804-13nngancki2b5l7a377jvcr1d80vuca2.apps.googleusercontent.com',
     iosBundleId: 'com.example.speechoutApp',
   );
 }

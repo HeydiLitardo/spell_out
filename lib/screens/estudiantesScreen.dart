@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spell_out/models/usuarioModel.dart';
+import 'package:spell_out/providers/usuarioProvider.dart';
 
 class EstudiantesScreen extends StatefulWidget {
   const EstudiantesScreen({Key? key}) : super(key: key);
@@ -8,6 +11,19 @@ class EstudiantesScreen extends StatefulWidget {
 }
 
 class _EstudiantesScreenState extends State<EstudiantesScreen> {
+  List<Usuario> usuariosEstudiantes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getEstudiantes();
+  }
+
+  void getEstudiantes() async {
+    usuariosEstudiantes =
+        await context.read<UsuarioProvider>().getEstudiantes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,41 +72,51 @@ class _EstudiantesScreenState extends State<EstudiantesScreen> {
             const SizedBox(
               height: 15,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(0),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 15),
-                    child: ListTile(
-                      title: Text("Estudiante $index"),
-                      subtitle: Text("Cedula $index"),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.edit,
-                              color: Theme.of(context).primaryColor,
-                            ),
+            FutureBuilder(
+              future: context.read<UsuarioProvider>().getEstudiantes(),
+              builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(0),
+                    itemCount: usuariosEstudiantes.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        child: ListTile(
+                          title: Text(
+                              "${usuariosEstudiantes[index].nombre} ${usuariosEstudiantes[index].apellido}"),
+                          subtitle: Text(
+                              "Cedula: ${usuariosEstudiantes[index].cedula}"),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                            ],
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.redAccent,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            })
           ],
         ),
       ),

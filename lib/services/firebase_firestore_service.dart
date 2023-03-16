@@ -57,4 +57,21 @@ class FirebaseFirestoreService {
     }
     return documentId;
   }
+
+  // get document by query snapshot
+  Future<Map<String, dynamic>> getDocumentByQuery(
+      String collection, String field, dynamic value) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection(collection)
+        .where(field, isEqualTo: value)
+        .get();
+    Map<String, dynamic> document = {};
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      var data = doc.data();
+      if (data is Map<dynamic, dynamic>) {
+        document = Map<String, dynamic>.from(data);
+      }
+    }
+    return document;
+  }
 }

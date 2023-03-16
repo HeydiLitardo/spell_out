@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "624522877347",
-    "project_id": "spell-out-f6f05",
-    "storage_bucket": "spell-out-f6f05.appspot.com"
+    "project_number": "52270552804",
+    "project_id": "vozletra-16bc9",
+    "storage_bucket": "vozletra-16bc9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:624522877347:android:c1ffb7be1e452a5db9a216",
+        "mobilesdk_app_id": "1:52270552804:android:b8f07ef4d331bf82163ef1",
         "android_client_info": {
           "package_name": "com.example.speechout_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "624522877347-j7de0tb9ak3tttf8f4vqieorjmvfa7jd.apps.googleusercontent.com",
+          "client_id": "52270552804-45tfd25jbbaj9nnf4fac1vhgfdhpgdjb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDLEwkTF3gyaW0rYDXJNCDVvvq44BZ-o50"
+          "current_key": "AIzaSyCHZWjlWwW_0jxQ24yeWnPCmaZzwDsREWs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "624522877347-j7de0tb9ak3tttf8f4vqieorjmvfa7jd.apps.googleusercontent.com",
+              "client_id": "52270552804-45tfd25jbbaj9nnf4fac1vhgfdhpgdjb.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "624522877347-ub6flolv5avq1baf7fgdbh949eed13el.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.speechoutApp"
-              }
             }
           ]
         }
