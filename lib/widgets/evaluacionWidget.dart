@@ -173,6 +173,10 @@ class _EvaluacionWidgetState extends State<EvaluacionWidget> {
                       const SizedBox(
                         height: 15,
                       ),
+                      Text(
+                          'Puntaje Total: ${_evaluacion.puntuacion.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 )
