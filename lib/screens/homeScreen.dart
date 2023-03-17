@@ -28,8 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
     Future.delayed(Duration.zero, () {
       context.read<UsuarioProvider>().getCurrentUser();
-      context.read<DatosProvider>().getData(idUsuario);
+      if (context.read<UsuarioProvider>().usuario.rol == 'estudiante') {
+        context.read<DatosProvider>().getData(idUsuario);
+      }
       context.read<DatosProvider>().calcularPorcentajes();
+      context.read<UsuarioProvider>().getEstudiantes();
     });
   }
 
@@ -114,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'Usuarios',
                               style: TextStyle(
@@ -127,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             Text(
-                              '3',
+                              '${context.watch<UsuarioProvider>().usuariosFirestore.length}',
                               style: TextStyle(
                                 fontSize: 21,
                                 fontWeight: FontWeight.bold,

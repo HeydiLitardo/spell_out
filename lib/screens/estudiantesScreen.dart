@@ -16,16 +16,20 @@ class _EstudiantesScreenState extends State<EstudiantesScreen> {
   @override
   void initState() {
     super.initState();
-    getEstudiantes();
   }
 
-  void getEstudiantes() async {
-    usuariosEstudiantes =
-        await context.read<UsuarioProvider>().getEstudiantes();
+  void deleteUsuario(String id) {
+    context.read<UsuarioProvider>().eliminarUsuario(id);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Usuario eliminado"),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    usuariosEstudiantes = context.watch<UsuarioProvider>().usuariosFirestore;
     return Padding(
       padding: const EdgeInsets.all(15),
       child: SingleChildScrollView(
@@ -64,7 +68,8 @@ class _EstudiantesScreenState extends State<EstudiantesScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/formularioUsuario");
+                      Navigator.pushNamed(context, "/formularioUsuario",
+                          arguments: Usuario());
                     },
                     child: const Text("Agregar Estudiante"))
               ],
@@ -72,51 +77,51 @@ class _EstudiantesScreenState extends State<EstudiantesScreen> {
             const SizedBox(
               height: 15,
             ),
-            FutureBuilder(
-              future: context.read<UsuarioProvider>().getEstudiantes(),
-              builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(0),
-                    itemCount: usuariosEstudiantes.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: ListTile(
-                          title: Text(
-                              "${usuariosEstudiantes[index].nombre} ${usuariosEstudiantes[index].apellido}"),
-                          subtitle: Text(
-                              "Cedula: ${usuariosEstudiantes[index].cedula}"),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.redAccent,
-                                ),
-                              ),
-                            ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: ListView.builder(
+                padding: const EdgeInsets.all(0),
+                itemCount: usuariosEstudiantes.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 15),
+                    child: ListTile(
+                      title: Text(
+                          "${usuariosEstudiantes[index].nombre} ${usuariosEstudiantes[index].apellido}"),
+                      subtitle:
+                          Text("Cedula: ${usuariosEstudiantes[index].cedula}"),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/formularioUsuario",
+                                  arguments: usuariosEstudiantes[index]);
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }
-            })
+                          IconButton(
+                            onPressed: () {
+                              deleteUsuario(usuariosEstudiantes[index].id!);
+                              setState(() {
+                                usuariosEstudiantes.removeAt(index);
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

@@ -85,8 +85,8 @@ class EvaluacionProvider with ChangeNotifier {
   }
 
   void calcularPuntuacion() {
-    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos! + 1);
-    notifyListeners();
+    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos!);
+    notifyListeners(); 
   }
 
   Future<void> capturarRespuesta(String respuesta) async {
