@@ -53,7 +53,7 @@ class UsuarioProvider with ChangeNotifier {
             usuario.correo == correo && usuario.contrasena == contrasena,
         orElse: () => Usuario());
   }
-
+//autenticacion
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
     try {

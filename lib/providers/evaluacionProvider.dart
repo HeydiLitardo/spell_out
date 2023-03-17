@@ -69,8 +69,9 @@ class EvaluacionProvider with ChangeNotifier {
   void siguientePregunta() {
     if (_evaluacion.actividades!.length > 0) {
       _actividad = _evaluacion.actividades!.removeAt(0);
+      debugPrint(_evaluacion.actividades!.length.toString());
     }
-    calcularPuntuacion();
+
     notifyListeners();
   }
 
@@ -85,7 +86,7 @@ class EvaluacionProvider with ChangeNotifier {
   }
 
   void calcularPuntuacion() {
-    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos! + 1);
+    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos! + 2);
     notifyListeners();
   }
 
@@ -96,6 +97,7 @@ class EvaluacionProvider with ChangeNotifier {
   }
 
   Future<void> guardarEvaluacion(String usuarioId) async {
+    calcularPuntuacion();
     evaluacion.actividades = [];
     _evaluacion.fecha = DateTime.now();
     onEvaluacion = false;
