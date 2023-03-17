@@ -86,7 +86,7 @@ class EvaluacionProvider with ChangeNotifier {
   }
 
   void calcularPuntuacion() {
-    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos! + 2);
+    _evaluacion.puntuacion = 2.5 * (_evaluacion.totalAciertos!);
     notifyListeners();
   }
 

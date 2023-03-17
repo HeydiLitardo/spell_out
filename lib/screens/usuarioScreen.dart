@@ -86,20 +86,6 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                 minVerticalPadding: 0,
                 iconColor: Colors.black,
                 onTap: () {},
-                leading: const Icon(Icons.person_outline),
-                title: const Text(
-                  'Informacion del Usuario',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                trailing: const Icon(Icons.arrow_forward_ios),
-              ),
-              const Divider(
-                thickness: 1,
-              ),
-              ListTile(
-                minVerticalPadding: 0,
-                iconColor: Colors.black,
-                onTap: () {},
                 leading: const Icon(Icons.question_mark_outlined),
                 title: const Text(
                   'Ayuda',

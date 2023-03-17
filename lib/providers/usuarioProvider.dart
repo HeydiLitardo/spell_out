@@ -42,6 +42,9 @@ class UsuarioProvider with ChangeNotifier {
   String _usuarioIdFirestoreDocumment = '';
   String get usuarioIdFirestoreDocumment => _usuarioIdFirestoreDocumment;
 
+  List<Usuario> _usuariosFirestore = [];
+  List<Usuario> get usuariosFirestore => _usuariosFirestore;
+
   set usuario(Usuario usuario) {
     _usuario = usuario;
     notifyListeners();
@@ -74,6 +77,7 @@ class UsuarioProvider with ChangeNotifier {
   // registrar el usuario en firestore
   Future<void> registrarUsuario(Usuario usuario) async {
     try {
+      debugPrint('usuario: ${usuario.toJson()}');
       await _firebaseFirestore.addDocument('usuarios', usuario.toJson());
     } catch (e) {
       print(e);
@@ -116,6 +120,7 @@ class UsuarioProvider with ChangeNotifier {
         String uid = user.uid;
         List<Map<String, dynamic>> usuarios =
             await _firebaseFirestore.getDocuments('usuarios');
+        debugPrint('usuarios: $usuarios');
         _usuario = Usuario.fromJson(usuarios.firstWhere(
             (usuario) => usuario['id'] == uid,
             orElse: () => Usuario().toJson()));
@@ -124,6 +129,16 @@ class UsuarioProvider with ChangeNotifier {
     } catch (e) {
       print('Error: ' + e.toString());
     }
+  }
+
+  Future<void> getEstudiantes() async {
+    List<Map<String, dynamic>> usuarios =
+        await _firebaseFirestore.getDocuments('usuarios');
+    List<Usuario> estudiantes = usuarios
+        .map((usuario) => Usuario.fromJson(usuario))
+        .where((usuario) => usuario.referencia == _usuario.id)
+        .toList();
+    _usuariosFirestore = estudiantes;
   }
 
   // devolver actividad resultaado en base a la primera letra del usuario
@@ -136,5 +151,26 @@ class UsuarioProvider with ChangeNotifier {
         (actividad) => actividad.respuesta == letra,
         orElse: () => _actividades.first);
     imgUsuario = actividad.imagen!;
+  }
+
+  Future<void> updateUsuario(Usuario usuario) async {
+    try {
+      String documentId =
+          await _firebaseFirestore.getDocumentIdById('usuarios', usuario.id!);
+      await _firebaseFirestore.updateDocument(
+          'usuarios', documentId, usuario.toJson());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> eliminarUsuario(String id) async {
+    try {
+      String documentId =
+          await _firebaseFirestore.getDocumentIdById('usuarios', id);
+      await _firebaseFirestore.deleteDocument('usuarios', documentId);
+    } catch (e) {
+      print(e);
+    }
   }
 }

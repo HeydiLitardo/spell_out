@@ -1,6 +1,10 @@
 import 'dart:collection';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:spell_out/providers/datosProvider.dart';
+import 'package:spell_out/providers/usuarioProvider.dart';
 import 'package:spell_out/widgets/estudianteDataTable.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -15,40 +19,10 @@ class EstadisticasScreen extends StatefulWidget {
 }
 
 class _EstadisticasScreenState extends State<EstadisticasScreen> {
-  List<Usuario> estudiantes = [
-    Usuario(
-      id: "1",
-      nombre: "Juan Perez",
-      correo: "",
-      cedula: "",
-    ),
-    Usuario(
-      id: "2",
-      nombre: "Maria Lopez",
-      correo: "",
-      cedula: "",
-    ),
-    Usuario(
-      id: "3",
-      nombre: "Pedro Martinez",
-      correo: "",
-      cedula: "",
-    ),
-    Usuario(
-      id: "4",
-      nombre: "Luisa Rodriguez",
-      correo: "",
-      cedula: "",
-    ),
-    Usuario(
-      id: "5",
-      nombre: "Carlos Sanchez",
-      correo: "",
-      cedula: "",
-    ),
-  ];
+  List<Usuario> estudiantes = [];
   @override
   Widget build(BuildContext context) {
+    estudiantes = context.watch<UsuarioProvider>().usuariosFirestore;
     return Padding(
         padding: EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -70,9 +44,14 @@ class _EstadisticasScreenState extends State<EstadisticasScreen> {
                     BarSeries<_SalesData, String>(
                       color: Theme.of(context).primaryColor,
                       dataSource: <_SalesData>[
-                        _SalesData('Ene', 35),
-                        _SalesData('Feb', 28),
-                        _SalesData('Mar', 0),
+                        _SalesData('Ene', 0),
+                        _SalesData('Feb', 0),
+                        _SalesData(
+                            'Mar',
+                            context
+                                .watch<DatosProvider>()
+                                .totalEvaluciones
+                                .toDouble()),
                         _SalesData('Abr', 0),
                         _SalesData('May', 0)
                       ],
